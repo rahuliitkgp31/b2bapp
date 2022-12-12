@@ -1,9 +1,41 @@
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react"
+import { useRef, useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const Email = () => {
+    const paypal = useRef();
+    const navigate = useNavigate();
+    useEffect(() => {
+        window.paypal
+            .Buttons({
+                createOrder: (data, actions, err) => {
+                    return actions.order.create({
+                        intent: "CAPTURE",
+                        purchase_units: [
+                            {
+                                description: "client bill for cocacola",
+                                amount: {
+                                    currency_code: "USD",
+                                    value: 21000.0,
+                                },
+                            },
+                        ],
+                    });
+                },
+                onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    console.log(order);
+                },
+                onError: (err) => {
+                    console.log(err);
+                    console.log("hello");
+                    navigate('/Table');
+                },
+            })
+            .render(paypal.current);
+    }, []);
+
     return (
         <div className="card">
             <div className="card-body mx-4">
@@ -33,7 +65,7 @@ export const Email = () => {
                         </div>
                         <div className="col-xl-2">
                             <p className="float-end">
-                        <a href="https://slicedinvoices.com/pdf/wordpress-pdf-invoice-plugin-sample.pdf" target="_blank" class="link-primary text-decoration-none">Click here to view invoice</a>
+                                <a href="https://slicedinvoices.com/pdf/wordpress-pdf-invoice-plugin-sample.pdf" target="_blank" class="link-primary text-decoration-none">Click here to view invoice</a>
                             </p>
                         </div>
                         <hr />
@@ -46,11 +78,10 @@ export const Email = () => {
                             <p className="float-end">USD 21000
                             </p>
                         </div>
-                        <hr  />
-                    </div>
-                    
-                    <div className="text-center" style={{ marginTop: '90px' }}>
-                    <button type="button" class="btn btn-primary btn-lg ">Pay with PayPal</button>
+                        <hr />  
+                        <div id="paypal-button-container" class="text-center" style={{ marginTop: '3%' }}>
+                            <div ref={paypal}></div>
+                        </div>
                     </div>
                 </div>
             </div>
