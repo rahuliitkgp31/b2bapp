@@ -4,6 +4,12 @@ import { useRef, useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const Email = () => {
+    const [showElement, setShowElement] = useState(true);
+    useEffect(() => {
+        setTimeout(function () {
+            setShowElement(false);
+        }, 5000);
+    }, []);
     const paypal = useRef();
     const navigate = useNavigate();
     useEffect(() => {
@@ -29,9 +35,8 @@ export const Email = () => {
                 },
                 onError: (err) => {
                     console.log(err);
-                    console.log("hello");
                     navigate('/Table');
-                },
+                }
             })
             .render(paypal.current);
     }, []);
@@ -78,7 +83,7 @@ export const Email = () => {
                             <p className="float-end">USD 21000
                             </p>
                         </div>
-                        <hr />  
+                        <hr />
                         <div id="paypal-button-container" class="text-center" style={{ marginTop: '3%' }}>
                             <div ref={paypal}></div>
                         </div>

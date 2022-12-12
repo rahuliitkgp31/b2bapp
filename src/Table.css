@@ -11,10 +11,12 @@
   }
 
 .loginTime{
-  margin-bottom: 2px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  font-weight: 600;
 }
 
 .amountCounter{
-  font-weight: 600;
-  margin-bottom: 0;
+  font-weight: 700;
+  margin-bottom: 3px;
 }

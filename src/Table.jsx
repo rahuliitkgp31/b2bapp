@@ -153,10 +153,10 @@ export const Table = () => {
       </nav>
       <nav className="navbar navbar-light" style={{ backgroundColor: '#FFFAFA' }}>
         <p className='amountCounter'>
-          Total Payable Amount: {totalPayableAmout}
+          Total Payable Amount: USD {totalPayableAmout}
         </p>
         <p className='amountCounter'>
-          Selected Payable Amount:{selectedPayableAmount}
+          Selected Payable Amount: USD {selectedPayableAmount} ({listOfIndexes.length} Invoice(s) selected)
         </p>
       </nav>
       <div className="container-fluid h-custom">
